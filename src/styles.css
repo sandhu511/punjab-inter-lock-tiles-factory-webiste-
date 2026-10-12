@@ -1,0 +1,217 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Noto Sans Gurmukhi", "Barlow Condensed", sans-serif;
+  --font-sans: "Noto Sans Gurmukhi", "Hind", sans-serif;
+  --font-pa: "Noto Sans Gurmukhi", sans-serif;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+  --color-star: var(--star);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.965 0.006 80);
+  --foreground: oklch(0.22 0.01 60);
+  --card: oklch(0.99 0.003 80);
+  --card-foreground: oklch(0.22 0.01 60);
+  --popover: oklch(0.99 0.003 80);
+  --popover-foreground: oklch(0.22 0.01 60);
+  --primary: oklch(0.55 0.15 35);
+  --primary-foreground: oklch(0.98 0.005 80);
+  --secondary: oklch(0.9 0.008 80);
+  --secondary-foreground: oklch(0.22 0.01 60);
+  --muted: oklch(0.92 0.007 80);
+  --muted-foreground: oklch(0.48 0.012 60);
+  --accent: oklch(0.88 0.03 50);
+  --accent-foreground: oklch(0.22 0.01 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.86 0.008 80);
+  --input: oklch(0.84 0.008 80);
+  --ring: oklch(0.76 0.15 75); /* Golden / Warm Sand paver stone accent */
+  --ink: oklch(0.2 0.008 60);
+  --ink-foreground: oklch(0.95 0.006 80);
+  --ink-muted: oklch(0.7 0.01 70);
+  --star: oklch(0.78 0.16 75);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+  /* Golden / Warm Sand Focus Outline & Highlight Ring for interactive buttons */
+  :focus-visible {
+    outline: 2px solid var(--color-ring) !important;
+    outline-offset: 2px !important;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--color-ring) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-ring) 35%, transparent) !important;
+  }
+}
+
+@utility grain {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+@utility reveal {
+  animation: reveal 0.8s ease-out both;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes slowzoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+@utility slowzoom {
+  animation: slowzoom 8s ease-out both;
+}
+
+/* ----------------------------------------------------
+   Button Animations & Micro-Interactions
+   ---------------------------------------------------- */
+
+@keyframes btn-shimmer {
+  0% { transform: translateX(-140%) skewX(-20deg); }
+  100% { transform: translateX(280%) skewX(-20deg); }
+}
+
+@keyframes btn-pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 45%, transparent),
+                0 4px 14px -2px color-mix(in oklab, var(--primary) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in oklab, var(--primary) 0%, transparent),
+                0 8px 24px -2px color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+}
+
+@keyframes btn-whatsapp-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5),
+                0 4px 14px -2px rgba(37, 211, 102, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0),
+                0 8px 24px -2px rgba(37, 211, 102, 0.45);
+  }
+}
+
+@keyframes btn-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-8deg) scale(1.1); }
+  75% { transform: rotate(8deg) scale(1.1); }
+}
+
+/* Button shine sheen effect */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 55%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  transform: skewX(-22deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.btn-shine:hover::before {
+  animation: btn-shimmer 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Button pulse utility */
+@utility btn-pulse {
+  animation: btn-pulse-ring 2.6s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@utility btn-wa-pulse {
+  animation: btn-whatsapp-pulse 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@utility btn-float {
+  animation: btn-float 3.5s infinite ease-in-out;
+}
+
+@keyframes banner-slide-in-right {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes banner-slide-in-left {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.banner-slide-next {
+  animation: banner-slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.banner-slide-prev {
+  animation: banner-slide-in-left 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
